@@ -1,4 +1,3 @@
-import {rerenderEntireTree} from "../render";
 import {strict} from "assert";
 
 export type MessagesType = {
@@ -19,8 +18,6 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
-
-
 }
 export type DialogsPageType = {
     messages: Array<MessagesType>
@@ -30,6 +27,7 @@ export type AppStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
+
 
 let state: AppStateType = {
     profilePage: {
@@ -59,20 +57,27 @@ let state: AppStateType = {
 
 
 }
+let rerenderEntireTree = () => {
+    console.log('hello')
+}
 export let addPost = () => {
-    let newPost = {
+    let newPost: PostType = {
         id: 5,
         message: state.profilePage.newPostText,
         likesCount: 0
     }
     state.profilePage.posts.push(newPost);
     state.profilePage.newPostText = '';
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 
 }
-export let newPostText = (newText: string) => {
+export const newPostText = (newText: string) => {
     state.profilePage.newPostText = newText;
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+}
+
+export const subscribe = (observer: () => void) => {
+    rerenderEntireTree = observer;
 }
 
 export default state
