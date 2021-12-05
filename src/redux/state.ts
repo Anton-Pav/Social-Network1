@@ -1,4 +1,5 @@
 import {rerenderEntireTree} from "../render";
+import {strict} from "assert";
 
 export type MessagesType = {
     id: number
@@ -13,9 +14,12 @@ export type PostType = {
     id: number
     message: string
     likesCount: number
+
 }
 export type ProfilePageType = {
     posts: Array<PostType>
+    newPostText: string
+
 
 }
 export type DialogsPageType = {
@@ -29,6 +33,7 @@ export type AppStateType = {
 
 let state: AppStateType = {
     profilePage: {
+        newPostText: '',
         posts: [
             {id: 1, message: 'Hi! How are you?', likesCount: 2},
             {id: 2, message: 'Hey! It is my first post!', likesCount: 23}
@@ -54,15 +59,20 @@ let state: AppStateType = {
 
 
 }
-export let addPost = (newMessage: string) => {
+export let addPost = () => {
     let newPost = {
         id: 5,
-        message: newMessage,
+        message: state.profilePage.newPostText,
         likesCount: 0
     }
-    state.profilePage.posts.push(newPost)
+    state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
     rerenderEntireTree(state)
 
+}
+export let newPostText = (newText: string) => {
+    state.profilePage.newPostText = newText;
+    rerenderEntireTree(state)
 }
 
 export default state
