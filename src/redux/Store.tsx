@@ -1,4 +1,5 @@
-import {strict} from "assert";
+import ProfileReducer, {AddPostACType, NewPostTextACType} from "./ProfileReducer";
+import DialogsReducer, {NewMessageTextACType, SendMessageACType} from "./DioalogsReducer";
 
 export type MessagesType = {
     id: number
@@ -23,6 +24,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     messages: Array<MessagesType>
     dialogs: Array<DialogsType>
+    newMessageText: string
 
 }
 export type AppStateType = {
@@ -37,21 +39,11 @@ export type StoreType = {
     getState: () => AppStateType,
     newPostText: (newText: string) => void,
     addPost: () => void,
-    dispatch: (action: ActionsType) => void,
+    dispatch: (action: ActionType) => void,
 }
-type AddPostActionType = {
-    type: "ADD POST"
-}
-type NewPostTextActionType = {
-    type: "NEW POST TEXT",
-    newText: string
-}
-export type MyPostsActionsType = {
-    type: "NEW MESSAGE",
-    newText: string
-}
-export type ActionsType = AddPostActionType | NewPostTextActionType | MyPostsActionsType
-const store: StoreType = {
+
+export type ActionType = AddPostACType | NewPostTextACType | NewMessageTextACType | SendMessageACType
+export const store: StoreType = {
     _state: {
         profilePage: {
             newPostText: '',
@@ -76,6 +68,7 @@ const store: StoreType = {
                 {id: 4, name: 'Ivan'},
                 {id: 5, name: 'Vladimir'},
             ],
+            newMessageText: ''
         },
 
 
@@ -104,24 +97,9 @@ const store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === "ADD POST") {
-            const newPost: PostType = {
-                id: 5,
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._rerenderEntireTree();
-
-        } else if (action.type === "NEW POST TEXT") {
-            this._state.profilePage.newPostText = action.newText;
-            this._rerenderEntireTree()
-        } else if (action.type === "NEW MESSAGE") {
-
-        }
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
+        this._rerenderEntireTree()
     }
-
-
 }
 export default store

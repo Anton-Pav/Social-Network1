@@ -1,23 +1,18 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
-import {ActionsType, PostType} from "../../../redux/state";
 import Post from "./Post/Post";
+import {MyPostsContainerType} from "./MyPostsContainer";
 
-export type PropsType = {
-    posts: Array<PostType>
-    text: string
-    dispatch: (action: ActionsType) => void
-}
 
-function MyPosts(props: PropsType) {
-    let postsElements = props.posts.map((p) =>
+function MyPosts(props: MyPostsContainerType) {
+    let postsElements = props.profilePage.posts.map((p) =>
         <Post likesCount={p.likesCount} id={p.id} message={p.message}/>)
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.currentTarget.value
-        props.dispatch({type:"NEW POST TEXT", newText: text})
+        props.updateNewPostText(text);
     }
-    let addPost = () => {
-        props.dispatch({type: "ADD POST"})
+    let onAddPost = () => {
+        props.addPost();
     }
 
     return (
@@ -27,10 +22,10 @@ function MyPosts(props: PropsType) {
                 <div>
                     <textarea
                         onChange={onPostChange}
-                        value={props.text}/>
+                        value={props.profilePage.newPostText}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add Post</button>
+                    <button onClick={onAddPost}>Add Post</button>
                 </div>
             </div>
             <div className={s.post}>

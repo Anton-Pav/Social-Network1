@@ -16,5 +16,8 @@
 }
 
 .messages .message {
-    color: white;
+    color: black;
+}
+.newMessage {
+    grid-area: newMessage;
 }

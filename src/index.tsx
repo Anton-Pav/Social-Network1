@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import store from "./redux/state";
+import store from "./redux/ReduxStore";
 import reportWebVitals from "./reportWebVitals";
+import {Provider} from "react-redux";
 
 
 let rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
-            <App store={store} dispatch={store.dispatch}/>
+            <Provider store={store}>
+                <App/>
+            </Provider>
         </React.StrictMode>,
         document.getElementById('root')
     );
