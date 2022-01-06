@@ -3,7 +3,6 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {MyPostsContainerType} from "./MyPostsContainer";
 
-
 function MyPosts(props: MyPostsContainerType) {
     let postsElements = props.profilePage.posts.map((p) =>
         <Post likesCount={p.likesCount} id={p.id} message={p.message}/>)
@@ -14,7 +13,6 @@ function MyPosts(props: MyPostsContainerType) {
     let onAddPost = () => {
         props.addPost();
     }
-
     return (
         <div className={s.postsBlock}>
             <h2>My posts</h2>
