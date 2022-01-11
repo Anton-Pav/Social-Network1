@@ -3,22 +3,24 @@ import React, {useEffect} from 'react';
 import styles from './users.module.css';
 import {UsersContainerType} from "./UsersContainer";
 import userPhoto from '../../assets/images/user.png'
+import UsersC from "./Users";
 
+class Users extends React.Component<UsersContainerType> {
 
-const Users = (props: UsersContainerType) => {
-    let getUsers = () => {
-        if (props.users.length === 0) {
+    getUsers = () => {
+        if (this.props.users.length === 0) {
             axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                props.setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
             })
 
         }
     }
 
-    return <div>
-        <button onClick={getUsers}>Get Users</button>
-        {
-            props.users.map(u => <div key={u.id}>
+    render(): React.ReactNode {
+        return <div>
+            <button onClick={this.getUsers}>Get Users</button>
+            {
+                this.props.users.map(u => <div key={u.id}>
                 <span>
                    <div>
                        <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto}/>
@@ -26,14 +28,14 @@ const Users = (props: UsersContainerType) => {
                     <div>
                         {u.followed
                             ? <button onClick={() => {
-                                props.unfollow(u.id)
+                                this.props.unfollow(u.id)
                             }}>Unfollow</button>
                             : <button onClick={() => {
-                                props.follow(u.id)
+                                this.props.follow(u.id)
                             }}>Follow</button>}
                     </div>
                 </span>
-                <span>
+                    <span>
                     <span>
                         <div>{u.name}</div>
                         <div>{u.status}</div>
@@ -43,9 +45,11 @@ const Users = (props: UsersContainerType) => {
                         <div>{"u.location.city"}</div>
                     </span>
                 </span>
-            </div>)
-        }
-    </div>
-};
+                </div>)
+            }
+        </div>
+    }
+}
+
 
 export default Users;

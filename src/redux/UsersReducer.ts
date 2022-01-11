@@ -8,15 +8,17 @@ export type locationType = {
 
 export type UsersType = {
     id: number
-    fullName: string
+    name: string
     status: string
-    photoUrl: string
+    photos: {
+        small:null,
+        large:null
+    }
     followed: boolean
     location: locationType
 }
 const initialState = {
-    users: [
-    ] as Array<UsersType>
+    users: [] as Array<UsersType>
 }
 type InitialStateType = typeof initialState
 const UsersReducer = (state: InitialStateType = initialState, action: ActionType) : InitialStateType => {
