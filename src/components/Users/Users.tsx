@@ -1,28 +1,44 @@
-import axios from 'axios';
-import React, {useEffect} from 'react';
-import styles from './users.module.css';
-import {UsersContainerType} from "./UsersContainer";
-import userPhoto from '../../assets/images/user.png'
+import React from 'react';
+import styles from "./users.module.css";
+import userPhoto from "../../assets/images/user.png";
+import {UsersType} from "../../redux/UsersReducer";
+import {NavLink} from "react-router-dom";
 
+type PropsType = {
+    users: Array<UsersType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    onPageChanged: (pageNumber: number) => void
 
-const Users = (props: UsersContainerType) => {
-    let getUsers = () => {
-        if (props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                props.setUsers(response.data.items)
-            })
+}
 
-        }
+let Users = (props: PropsType) => {
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
     }
-
     return <div>
-        <button onClick={getUsers}>Get Users</button>
+        <div>
+            {pages.map(m => {
+                return <span
+                    className={props.currentPage === m ? styles.selectedPage : ''}
+                    onClick={(e) => {
+                        props.onPageChanged(m)
+                    }}>{m}</span>
+            })}
+        </div>
         {
             props.users.map(u => <div key={u.id}>
                 <span>
                    <div>
+                       <NavLink to={`/profile/${u.id}`}>
                        <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto}/>
-                   </div>
+                       </NavLink>
+                       </div>
                     <div>
                         {u.followed
                             ? <button onClick={() => {
@@ -46,6 +62,6 @@ const Users = (props: UsersContainerType) => {
             </div>)
         }
     </div>
-};
+}
 
 export default Users;

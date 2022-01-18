@@ -43,63 +43,63 @@ export type StoreType = {
 }
 
 export type ActionType = AddPostACType | NewPostTextACType | NewMessageTextACType | SendMessageACType
-export const store: StoreType = {
-    _state: {
-        profilePage: {
-            newPostText: '',
-            posts: [
-                {id: 1, message: 'Hi! How are you?', likesCount: 2},
-                {id: 2, message: 'Hey! It is my first post!', likesCount: 23}
-            ],
-
-        },
-        dialogsPage: {
-            messages: [
-                {id: 1, message: 'Hello my friend!'},
-                {id: 2, message: 'Hey! How are you?'},
-                {id: 3, message: 'Hey! How are you?'},
-                {id: 4, message: 'Call me please'},
-                {id: 5, message: 'OMG'},
-            ],
-            dialogs: [
-                {id: 1, name: 'Andrey'},
-                {id: 2, name: 'Anton'},
-                {id: 3, name: 'Alex'},
-                {id: 4, name: 'Ivan'},
-                {id: 5, name: 'Vladimir'},
-            ],
-            newMessageText: ''
-        },
-
-
-    },
-    _rerenderEntireTree() {
-        console.log('state changed')
-    },
-    newPostText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._rerenderEntireTree()
-    },
-    addPost() {
-        const newPost: PostType = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._rerenderEntireTree();
-    },
-    subscribe(observer) {
-        this._rerenderEntireTree = observer;
-    },
-    getState() {
-        return this._state
-    },
-    dispatch(action) {
-        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
-        this._rerenderEntireTree()
-    }
-}
-export default store
+// export const store: StoreType = {
+//     _state: {
+//         profilePage: {
+//             newPostText: '',
+//             posts: [
+//                 {id: 1, message: 'Hi! How are you?', likesCount: 2},
+//                 {id: 2, message: 'Hey! It is my first post!', likesCount: 23}
+//             ],
+//
+//         },
+//         dialogsPage: {
+//             messages: [
+//                 {id: 1, message: 'Hello my friend!'},
+//                 {id: 2, message: 'Hey! How are you?'},
+//                 {id: 3, message: 'Hey! How are you?'},
+//                 {id: 4, message: 'Call me please'},
+//                 {id: 5, message: 'OMG'},
+//             ],
+//             dialogs: [
+//                 {id: 1, name: 'Andrey'},
+//                 {id: 2, name: 'Anton'},
+//                 {id: 3, name: 'Alex'},
+//                 {id: 4, name: 'Ivan'},
+//                 {id: 5, name: 'Vladimir'},
+//             ],
+//             newMessageText: ''
+//         },
+//
+//
+//     },
+//     _rerenderEntireTree() {
+//         console.log('state changed')
+//     },
+//     newPostText(newText: string) {
+//         this._state.profilePage.newPostText = newText;
+//         this._rerenderEntireTree()
+//     },
+//     addPost() {
+//         const newPost: PostType = {
+//             id: 5,
+//             message: this._state.profilePage.newPostText,
+//             likesCount: 0
+//         }
+//         this._state.profilePage.posts.push(newPost);
+//         this._state.profilePage.newPostText = '';
+//         this._rerenderEntireTree();
+//     },
+//     subscribe(observer) {
+//         this._rerenderEntireTree = observer;
+//     },
+//     getState() {
+//         return this._state
+//     },
+//     dispatch(action) {
+//         this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+//         this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action)
+//         this._rerenderEntireTree()
+//     }
+// }
+// export default store

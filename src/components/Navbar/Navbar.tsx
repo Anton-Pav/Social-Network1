@@ -15,6 +15,9 @@ function NavBar() {
                 <NavLink className={ (nData)=>nData.isActive? s.active: ''} to={"/news"}>News</NavLink>
             </div>
             <div className={s.item}>
+                <NavLink className={ (nData)=>nData.isActive? s.active: ''} to={"/users"}>Users</NavLink>
+            </div>
+            <div className={s.item}>
                 <NavLink className={ (nData)=>nData.isActive? s.active: ''} to={"/music"}>Music</NavLink>
             </div>
             <div className={s.item}>

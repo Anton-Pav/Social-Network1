@@ -11,23 +11,40 @@ export type UsersType = {
     name: string
     status: string
     photos: {
-        small:null,
-        large:null
+        small: null,
+        large: null
     }
     followed: boolean
     location: locationType
 }
 const initialState = {
-    users: [] as Array<UsersType>
+    users: [] as Array<UsersType>,
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1,
+    isFetching: true,
 }
 type InitialStateType = typeof initialState
-const UsersReducer = (state: InitialStateType = initialState, action: ActionType) : InitialStateType => {
+export type ActionType = followACType |
+    unfollowACType |
+    setUsersACType |
+    setCurrentPagesACType |
+    setTotalUsersCountACType |
+    toggleIsFetchingACType
+export type followACType = ReturnType<typeof follow>
+export type unfollowACType = ReturnType<typeof unfollow>
+export type setUsersACType = ReturnType<typeof setUsers>
+export type setCurrentPagesACType = ReturnType<typeof setCurrentPage>
+export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
+export type toggleIsFetchingACType = ReturnType<typeof setIsFetching>
+
+const UsersReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     debugger
     switch (action.type) {
         case "FOLLOW":
-           return {
+            return {
                 ...state,
-                users: state.users.map(u=> {
+                users: state.users.map(u => {
                     if (u.id === action.payload.userId) {
                         return {...u, followed: true}
                     }
@@ -37,7 +54,7 @@ const UsersReducer = (state: InitialStateType = initialState, action: ActionType
         case "UNFOLLOW":
             return {
                 ...state,
-                users: state.users.map(u=> {
+                users: state.users.map(u => {
                     if (u.id === action.payload.userId) {
                         return {...u, followed: false}
                     }
@@ -45,26 +62,27 @@ const UsersReducer = (state: InitialStateType = initialState, action: ActionType
                 })
             }
         case "SET-USERS":
-            return  {...state, users: [...state.users, ...action.payload.users]}
+            return {...state, users: action.payload.users}
+        case "SET-CURRENT-PAGE":
+            return {...state, currentPage: action.payload.currentPage}
+        case "SET-TOTAL-USERS-COUNT":
+            return {...state, totalUsersCount: action.payload.count}
+        case "TOGGLE-IS-FETCHING":
+            return {...state, isFetching: action.payload.isFetching}
         default :
             return state
     }
 };
 
-export type ActionType = followACType | unfollowACType | setUsersACType
-export type followACType = ReturnType<typeof followAC>
-export type unfollowACType = ReturnType<typeof unfollowAC>
-export type setUsersACType = ReturnType<typeof setUsersAC>
-
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
     return {
         type: "FOLLOW",
-        payload:{
+        payload: {
             userId
         }
     } as const
 }
-export const unfollowAC = (userId: number) => {
+export const unfollow = (userId: number) => {
     return {
         type: "UNFOLLOW",
         payload: {
@@ -72,11 +90,36 @@ export const unfollowAC = (userId: number) => {
         }
     } as const
 }
-export const setUsersAC = (users:Array<UsersType> ) => {
+export const setUsers = (users: Array<UsersType>) => {
     return {
         type: "SET-USERS",
         payload: {
             users
+        }
+    } as const
+}
+export const setCurrentPage = (currentPage: number) => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        payload: {
+            currentPage
+        }
+    } as const
+}
+export const setTotalUsersCount = (totalUsersCount: number) => {
+    return {
+        type: "SET-TOTAL-USERS-COUNT",
+        payload: {
+
+            count: totalUsersCount
+        }
+    } as const
+}
+export const setIsFetching = (isFetching: boolean) => {
+    return {
+        type: "TOGGLE-IS-FETCHING",
+        payload: {
+            isFetching
         }
     } as const
 }

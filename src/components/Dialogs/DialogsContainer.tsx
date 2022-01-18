@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 
 import {DialogsType, MessagesType, newMessageTextAC, sendMessageAC} from "../../redux/DioalogsReducer";
 import Dialogs from "./Dialogs";
