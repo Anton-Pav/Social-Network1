@@ -7,11 +7,12 @@ import ProfileComponent from "./ProfileComponent";
 
 type MapStateToPropsType = {
     profile: ProfileType
-
 }
+
 type MapDispatchToPropsType = {
     setProfile: (profile: ProfileType) => void
 }
+
 export type ProfileContainerType = MapStateToPropsType & MapDispatchToPropsType
 
 let mapStateToProps = (state: AppStateType):MapStateToPropsType => {

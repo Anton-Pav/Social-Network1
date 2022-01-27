@@ -17,24 +17,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="862604d5-41b3-4cf6-b16b-105cf154295a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/images/preloader.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Profile/ProfileComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Profile/ProfileContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/common/preloader/Preloader.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Header/HeaderContainer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/AuthReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dialogs/DialogsContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dialogs/DialogsContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/MyPosts/MyPostsContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/ProfileInfo/ProfileInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/ProfileInfo/ProfileInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile/ProfileContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/ProfileContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Users/Users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/Users.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Users/UsersC.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/UsersContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Users/users.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Users/users.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/ProfileReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/ProfileReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/Store.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/ReduxStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/UsersReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/UsersReducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +59,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Profile" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Header" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -77,11 +71,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Social-Network1\src\components\Header" />
+      <recent name="D:\Social-Network1\src\redux" />
       <recent name="D:\Social-Network1\src\components\Profile" />
       <recent name="D:\Social-Network1\src\components\Users" />
-      <recent name="D:\Social-Network1\src\redux" />
       <recent name="D:\Social-Network1\src\components\Dialogs" />
-      <recent name="D:\Social-Network1\src\components\Profile\MyPosts" />
     </key>
   </component>
   <component name="RunManager">
@@ -133,6 +127,9 @@
       <workItem from="1642405851442" duration="23529000" />
       <workItem from="1642431740537" duration="8105000" />
       <workItem from="1642493640210" duration="586000" />
+      <workItem from="1643016933060" duration="19003000" />
+      <workItem from="1643110048606" duration="46000" />
+      <workItem from="1643110218593" duration="2143000" />
     </task>
     <servers />
   </component>
@@ -171,10 +168,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="447" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1640600713445" />
-    <state x="914" y="216" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1641894601161">
+    <state x="914" y="216" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1643030750071">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="914" y="216" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1641894601161" />
+    <state x="914" y="216" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1643030750071" />
     <state x="464" y="125" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1642431444088">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
