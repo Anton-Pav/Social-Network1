@@ -15,6 +15,7 @@ const Dialogs = (props: DialogsContainerType) => {
       let body =  e.currentTarget.value;
       props.newMessageText(body)
     }
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>

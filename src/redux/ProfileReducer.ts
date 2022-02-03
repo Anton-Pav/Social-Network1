@@ -1,3 +1,5 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type PostType = {
     id: number
@@ -5,16 +7,16 @@ export type PostType = {
     likesCount: number
 }
 export type ProfileType = {
-    "aboutMe": null| string,
+    "aboutMe": string,
     "contacts": {
-        "facebook": null| string,
-        "website": null| string,
-        "vk": null| string,
-        "twitter": null| string,
-        "instagram": null| string,
-        "youtube": null| string,
-        "github": null| string,
-        "mainLink": null| string
+        "facebook": string,
+        "website": string,
+        "vk": string,
+        "twitter": string,
+        "instagram": string,
+        "youtube": string,
+        "github":  string,
+        "mainLink":  string
     },
     "lookingForAJob": boolean,
     "lookingForAJobDescription": null| string,
@@ -87,5 +89,10 @@ export const setUserProfile = (profile:ProfileType) => {
         type: "SET-USER-PROFILE",
         profile
     } as const
+}
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    return usersAPI.getUserProfile(userId).then(data =>
+       dispatch(setUserProfile(data)))
+
 }
 export default ProfileReducer;

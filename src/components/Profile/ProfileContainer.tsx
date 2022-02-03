@@ -1,35 +1,45 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/ReduxStore";
-import {ProfileType, setUserProfile} from "../../redux/ProfileReducer";
-import {Dispatch} from "redux";
-import ProfileComponent from "./ProfileComponent";
+import {getUserProfile, ProfileType} from "../../redux/ProfileReducer";
+import {withRouter, WithRouterType} from "../common/WithRouter/WithRouter";
+import Profile from "./Profile";
+import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
-type MapStateToPropsType = {
+export type MapStateToPropsType = {
     profile: ProfileType
 }
 
-type MapDispatchToPropsType = {
-    setProfile: (profile: ProfileType) => void
+
+export type MapDispatchToPropsType = {
+    getUserProfile: (param_id: string) => void
 }
 
-export type ProfileContainerType = MapStateToPropsType & MapDispatchToPropsType
+export type PropsType = MapStateToPropsType & MapDispatchToPropsType & WithRouterType
 
-let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
-    return {
-        profile: state.profilePage.profile
-    }
+class ProfileContainer extends React.Component<PropsType> {
 
-}
-
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        setProfile: (profile: ProfileType) => {
-            dispatch(setUserProfile(profile))
+    componentDidMount() {
+        let userId = this.props.router.params.userId
+        if (!userId) {
+            userId = '2'
         }
+        this.props.getUserProfile(userId)
+    }
+
+    render() {
+        return <Profile {...this.props} profile={this.props.profile} />
     }
 }
 
-const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileComponent);
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+    profile: state.profilePage.profile,
+})
 
-export default ProfileContainer;
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUserProfile}),
+    withAuthRedirect,
+    withRouter,
+
+)(ProfileContainer)

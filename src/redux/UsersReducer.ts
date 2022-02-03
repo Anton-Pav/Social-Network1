@@ -1,5 +1,5 @@
-import React from 'react';
-import {NewMessageTextACType, SendMessageACType} from "./DioalogsReducer";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type locationType = {
     city: string
@@ -40,8 +40,9 @@ export type ActionType = followACType |
     setTotalUsersCountACType |
     toggleIsFetchingACType |
     setIsFollowingProgressACType
-export type followACType = ReturnType<typeof follow>
-export type unfollowACType = ReturnType<typeof unfollow>
+
+export type followACType = ReturnType<typeof followSucces>
+export type unfollowACType = ReturnType<typeof unfollowSucces>
 export type setUsersACType = ReturnType<typeof setUsers>
 export type setCurrentPagesACType = ReturnType<typeof setCurrentPage>
 export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
@@ -87,7 +88,7 @@ const UsersReducer = (state: InitialStatePropsType = initialState, action: Actio
     }
 };
 
-export const follow = (userId: number) => {
+export const followSucces = (userId: number) => {
     return {
         type: "FOLLOW",
         payload: {
@@ -95,7 +96,8 @@ export const follow = (userId: number) => {
         }
     } as const
 }
-export const unfollow = (userId: number) => {
+
+export const unfollowSucces = (userId: number) => {
     return {
         type: "UNFOLLOW",
         payload: {
@@ -103,6 +105,7 @@ export const unfollow = (userId: number) => {
         }
     } as const
 }
+
 export const setUsers = (users: Array<UsersType>) => {
     return {
         type: "SET-USERS",
@@ -111,6 +114,7 @@ export const setUsers = (users: Array<UsersType>) => {
         }
     } as const
 }
+
 export const setCurrentPage = (currentPage: number) => {
     return {
         type: "SET-CURRENT-PAGE",
@@ -119,6 +123,7 @@ export const setCurrentPage = (currentPage: number) => {
         }
     } as const
 }
+
 export const setTotalUsersCount = (totalUsersCount: number) => {
     return {
         type: "SET-TOTAL-USERS-COUNT",
@@ -128,6 +133,7 @@ export const setTotalUsersCount = (totalUsersCount: number) => {
         }
     } as const
 }
+
 export const setIsFetching = (isFetching: boolean) => {
     return {
         type: "TOGGLE-IS-FETCHING",
@@ -136,6 +142,7 @@ export const setIsFetching = (isFetching: boolean) => {
         }
     } as const
 }
+
 export const toggleIsFollowingProgress = (isFetching: boolean, id:number) => {
     return {
         type: "TOGGLE-IS-FOLLOWING",
@@ -145,4 +152,43 @@ export const toggleIsFollowingProgress = (isFetching: boolean, id:number) => {
         }
     } as const
 }
+
+export const getUsers = (currentPage: number, pageSize: number) => {
+   return (dispatch: Dispatch) => {
+        dispatch(setIsFetching(true));
+        dispatch(setCurrentPage(currentPage))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersCount(data.totalCount));
+        })
+    }
+}
+
+export const followTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFollowingProgress(true, id))
+        usersAPI.follow(id)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                   dispatch(followSucces(id))
+                }
+               dispatch(toggleIsFollowingProgress(false, id))
+            })
+    }
+}
+
+export const unfollowTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFollowingProgress(true, id))
+        usersAPI.unfollow(id)
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(unfollowSucces(id))
+                }
+                dispatch(toggleIsFollowingProgress(false, id))
+            })
+    }
+}
+
 export default UsersReducer;
