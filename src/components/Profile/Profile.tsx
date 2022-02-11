@@ -1,12 +1,18 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {MapStateToPropsType} from "./ProfileContainer";
+import {ProfileType} from "../../redux/ProfileReducer";
 
-function Profile (props: MapStateToPropsType) {
+export type ProfilePropsType = {
+    profile: ProfileType,
+    status:string,
+    updateStatus: (status: string) => void
+}
+
+function Profile (props: ProfilePropsType) {
     return (
         <div className={'content'}>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <MyPostsContainer/>
         </div>
     );

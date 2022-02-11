@@ -4,7 +4,6 @@ import {
     useParams,
     Location, NavigateFunction
 } from "react-router-dom";
-import {ComponentType} from "react";
 
 type ComponentWithRouterPropType = {
     location: Location
@@ -22,12 +21,10 @@ export function withRouter(Component: any) {
         let location = useLocation();
         let navigate = useNavigate();
         let params = useParams();
-        return (
-            <Component
+        return <Component
                 {...props}
                 router={{ location, navigate, params }}
             />
-        );
     }
 
     return ComponentWithRouterProps;

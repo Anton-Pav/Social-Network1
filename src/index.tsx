@@ -18,6 +18,6 @@ export const renderThree = () => {ReactDOM.render(
 
 renderThree();
 store.subscribe(renderThree);
-
-
+//@ts-ignore
+window.store = store
 reportWebVitals();
