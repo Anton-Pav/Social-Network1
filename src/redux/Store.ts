@@ -1,5 +1,5 @@
-import ProfileReducer, {AddPostACType, NewPostTextACType} from "./ProfileReducer";
-import DialogsReducer, {NewMessageTextACType, SendMessageACType} from "./DioalogsReducer";
+import ProfileReducer, {AddPostACType} from "./ProfileReducer";
+import DialogsReducer, { SendMessageACType} from "./DioalogsReducer";
 
 export type MessagesType = {
     id: number
@@ -42,7 +42,7 @@ export type StoreType = {
     dispatch: (action: ActionType) => void,
 }
 
-export type ActionType = AddPostACType | NewPostTextACType | NewMessageTextACType | SendMessageACType
+export type ActionType = AddPostACType | SendMessageACType
 // export const store: StoreType = {
 //     _state: {
 //         profilePage: {

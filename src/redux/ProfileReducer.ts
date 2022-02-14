@@ -34,29 +34,21 @@ const initialState = {
         {id: 1, message: 'Hi! How are you?', likesCount: 2},
         {id: 2, message: 'Hey! It is my first post!', likesCount: 23},
     ] as Array<PostType>,
-    newPostText: '' as string,
     status: '' as string
 
 }
 type InitialStateType = typeof initialState
-const ProfileReducer = (state: InitialStateType = initialState, action: ActionType) : InitialStateType => {
+const ProfileReducer = (state: InitialStateType = initialState, action: ProfileActionType) : InitialStateType => {
     switch (action.type) {
         case "ADD POST": {
             const newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             }
             return  {
                 ...state,
                 posts: [...state.posts,newPost],
-                newPostText: ''
-            }
-        }
-        case "NEW POST TEXT": {
-            return {
-                ...state,
-                newPostText:action.newText
             }
         }
         case "SET-USER-PROFILE": {
@@ -74,23 +66,18 @@ const ProfileReducer = (state: InitialStateType = initialState, action: ActionTy
     }
 };
 
-export type ActionType = AddPostACType | NewPostTextACType | SetUserProfileType | setStatusType
+export type ProfileActionType = AddPostACType | SetUserProfileType | setStatusType
 export type AddPostACType = ReturnType<typeof addPost>
-export type NewPostTextACType = ReturnType<typeof newPostText>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type setStatusType = ReturnType<typeof setStatus>
 
-export const addPost = () => {
+export const addPost = (newPostText: string) => {
     return {
-        type: "ADD POST"
+        type: "ADD POST",
+        newPostText
     } as const
 }
-export const newPostText = (newText: string) => {
-    return {
-        type: "NEW POST TEXT",
-        newText: newText
-    } as const
-}
+
 export const setUserProfile = (profile:ProfileType) => {
     return {
         type: "SET-USER-PROFILE",

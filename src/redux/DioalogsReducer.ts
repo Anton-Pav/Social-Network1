@@ -1,5 +1,5 @@
 import React from 'react';
-import {AddPostACType, NewPostTextACType} from "./ProfileReducer";
+import {AddPostACType} from "./ProfileReducer";
 
 export type MessagesType = {
     id: number
@@ -25,23 +25,17 @@ const initialState = {
         {id: 4, name: 'Ivan'},
         {id: 5, name: 'Vladimir'},
     ] as Array<DialogsType>,
-    newMessageText: '' as string
+
 }
 type InitialStateType = typeof initialState
 
 
-const DialogsReducer = (state: InitialStateType = initialState, action: ActionType) : InitialStateType => {
+const DialogsReducer = (state: InitialStateType = initialState, action: DialogsActionType) : InitialStateType => {
     switch (action.type) {
-        case "NEW MESSAGE BODY":
-            return {
-                ...state,
-                newMessageText: action.body
-            };
         case "SEND MESSAGE":
-            let body = state.newMessageText;
+            let body = action.newMessageText;
             return {
                 ...state,
-                newMessageText:'',
                 messages: [...state.messages, {id: 6, message: body}]
             };
         default:
@@ -49,20 +43,15 @@ const DialogsReducer = (state: InitialStateType = initialState, action: ActionTy
     }
 };
 
-export type ActionType = AddPostACType | NewPostTextACType | SendMessageACType | NewMessageTextACType
+export type DialogsActionType = AddPostACType  | SendMessageACType
 export type SendMessageACType = ReturnType<typeof sendMessageAC>
-export type NewMessageTextACType = ReturnType<typeof newMessageTextAC>
 
-export const sendMessageAC = () => {
+export const sendMessageAC = (newMessageText: string) => {
     return {
-        type: "SEND MESSAGE"
+        type: "SEND MESSAGE",
+        newMessageText
     } as const
 
 }
-export const newMessageTextAC = (body: string) => {
-    return {
-        type: "NEW MESSAGE BODY",
-        body: body
-    } as const
-}
+
 export default DialogsReducer;
